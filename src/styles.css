@@ -1,0 +1,11 @@
+.section {
+  font-style: italic;
+}
+
+.headline {
+  font-weight: 600;
+}
+.blurb {
+  margin: 5px;
+
+}
