@@ -1,11 +1,25 @@
+.city-block {
+  width: 19%;
+  float: left;
+}
+
 .section {
   font-style: italic;
+  color: gray;
+  /* background-color: gray;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 10px; */
 }
 
 .headline {
   font-weight: 600;
 }
 .blurb {
-  margin: 5px;
+  margin: 1%;
 
+}
+
+.list {
+  display: none
 }
