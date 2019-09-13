@@ -7,7 +7,17 @@ import {} from './project';
 let nytKey = process.env.API_KEY;
 
 
+function attachListeners(){
+  $(".cityList").on("click", "div", function(){
+    let listID = `city${this.id}-p`
+    console.log(listID)
+    $(`#${listID}`).slideToggle();
+  });
+}
+
+
 $(document).ready(function(event){
+  attachListeners();
 
   let searchArray = ["Portland","New York", "Atlanta", "Denver", "Seattle"];
 
@@ -40,30 +50,25 @@ $(document).ready(function(event){
       let arrayLength = body.response.docs.length;
       let articles = body.response.docs
 
-      let cityColumn = `<div class='city-block col'><h4 class='header' id='city${htmlID}-h'>${searchWord}: ${arrayLength}</h4><p class='list' id='city${htmlID}'-p>`
+      let cityColumn = `<div class='city-block col' id='${htmlID}'><h4 class='header' id='city${htmlID}-h'>${searchWord}: ${arrayLength}</h4><div class='list' id='city${htmlID}-p'>`;
 
       articles.forEach(function(article){
         let headline = article.headline.main
         let section = article.section_name
         let urlArticle = article.web_url
 
-        cityColumn= cityColumn +`<a href='${urlArticle}'><div class='blurb'><span class='headline'>${headline}</span></a><br><span class ='section'>${section}</span></div>`;
+        cityColumn = cityColumn +`<a href='${urlArticle}'><div class='blurb'><span class='headline'>${headline}</span><br><span class ='section'>${section}</span></div></a>`;
       })
-      cityColumn = cityColumn + `</p></div>`;
+      cityColumn = cityColumn + `</div></div>`;
       $(".cityList").append(cityColumn)
+      $(".list").hide();
 
     })
   }
 
-  for (let i=0; i<=searchArray.length; i++) {
+  for (let i=0; i<searchArray.length; i++) {
     let searchWord = searchArray[i];
-    let htmlID = i+1;
+    let htmlID = i;
     getArticles(searchWord,htmlID);
   }
-
-  $(".header").click(function(){
-    let listID = `city${this.id.charAt(4)}-p`
-    console.log(listID)
-    $(`#${listID}`).slideToggle();
-  });
 });
